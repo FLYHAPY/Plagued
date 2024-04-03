@@ -13,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
     public float wallRunSpeed;
     public float dashSpeed;
     public float swingSpeed;
+    public float rocketJumpSpeed;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
+    private float diferentSpeed;
     public float speedIncreaseMultipier;
     public float slopeIncreaseMultipier;
     public float groudDrag;
@@ -66,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         sliding,
         swinging,
         crouching,
+        rocketjumping,
         dashing
     }
 
@@ -73,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
     public bool wallRunning;
     public bool dashing;
     public bool swinging;
+    public bool rocketJumping;
 
     private void Start()
     {
@@ -140,15 +144,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if(dashing)
+        if (rocketJumping)
+        {
+            state = MovementState.rocketjumping;
+            desiredMoveSpeed = rocketJumpSpeed;
+        }
+        else if(dashing)
         {
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
+            diferentSpeed = dashSpeed;
         }
         else if(wallRunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallRunSpeed;
+            diferentSpeed = wallRunSpeed;
         }
         //slidiing
         else if (sliding)
@@ -158,33 +169,39 @@ public class PlayerMovement : MonoBehaviour
             if(OnSlope() && rb.velocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
+                diferentSpeed = slideSpeed;
             }
             else
             {
                 desiredMoveSpeed = sprintSpeed;
+                diferentSpeed = sprintSpeed;
             }
         }
         else if (swinging)
         {
             state = MovementState.swinging;
             desiredMoveSpeed = swingSpeed;
+            diferentSpeed = swingSpeed;
         }
         else if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
+            diferentSpeed = crouchSpeed;
         }
         //Sprinting
         else if(grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
+            diferentSpeed = sprintSpeed;
         }
         //Walking
         else if (grounded)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+            diferentSpeed = walkSpeed;
         }
         //Air
         else
