@@ -78,7 +78,7 @@ public class Guns : MonoBehaviour
         float z = Random.Range(-spread, spread);
 
         Vector3 direction = cam.transform.forward + new Vector3(x, y, z);
-        Debug.Log("hit");
+        //Debug.Log("hit");
 
         if (Physics.Raycast(cam.transform.position, direction, out hit, range, whatIsEnemy))
         {
@@ -87,6 +87,9 @@ public class Guns : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 //call the function of the enemy
+                Debug.Log("hit");
+                //hit.collider.gameObject.GetComponent<DroneController>().TakeDamage(damage);
+                hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
             }
         }
 
