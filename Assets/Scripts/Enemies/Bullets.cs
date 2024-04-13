@@ -19,7 +19,7 @@ public class Bullets : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player2"))
         {
             Debug.Log(collision.gameObject);
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);

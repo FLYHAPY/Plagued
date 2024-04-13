@@ -91,6 +91,7 @@ public class Guns : MonoBehaviour
                 //hit.collider.gameObject.GetComponent<DroneController>().TakeDamage(damage);
                 //hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
                 hit.collider.gameObject.SendMessage("TakeDamage", damage);
+
             }
         }
 

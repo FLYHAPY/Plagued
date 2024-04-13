@@ -7,8 +7,14 @@ public class OfficerController : EnemyBase
     public float bulletSpeed = 10f;
     public float shootCooldown = 1f;
     public NavMeshAgent agent;
+    public Transform firePoint;
 
     private float lastShootTime;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player2");
+    }
 
     void Update()
     {
@@ -35,15 +41,16 @@ public class OfficerController : EnemyBase
         return false;
     }
 
+
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Debug.Log(direction);
         bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
         bullet.GetComponent<Bullets>().damage = damage;
 
-        Debug.Log("Shooting(");
+        Debug.Log("Shooting");
 
         Destroy(bullet, 3f); 
     }
