@@ -164,6 +164,7 @@ MonoBehaviour:
   shooting: 0
   readyToShoot: 0
   reloading: 0
+  rocketjumping: 0
   cam: {fileID: 1517887685902792110}
   attackPoint: {fileID: 1478493911600213681}
   whatIsEnemy:
@@ -446,6 +447,7 @@ MonoBehaviour:
   shooting: 0
   readyToShoot: 0
   reloading: 0
+  rocketjumping: 0
   cam: {fileID: 1517887685902792110}
   attackPoint: {fileID: 1527658004339725653}
   whatIsEnemy:
@@ -498,7 +500,7 @@ GameObject:
   - component: {fileID: 1202995854756810134}
   - component: {fileID: 9203862212780874494}
   - component: {fileID: 427108406881466691}
-  - component: {fileID: 216566577107910590}
+  - component: {fileID: 3919304386601970145}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -593,7 +595,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &216566577107910590
+--- !u!114 &3919304386601970145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -619,6 +621,7 @@ MonoBehaviour:
   shooting: 0
   readyToShoot: 0
   reloading: 0
+  rocketjumping: 1
   cam: {fileID: 1517887685902792110}
   attackPoint: {fileID: 1781203394568889337}
   whatIsEnemy:

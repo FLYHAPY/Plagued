@@ -61,7 +61,7 @@ public class Guns : MonoBehaviour
         if(readyToShoot && shooting && !reloading && bulletsLeft > 0) 
         {
             bulletsShot = bulletsPerTap;
-            for (int i = 0; i < bulletsShot; i++)
+            for (int i = 0; i < bulletsPerTap; i++)
             {
                 Shoot();
                 yield return new WaitForSeconds(yes);
@@ -89,14 +89,16 @@ public class Guns : MonoBehaviour
                 //call the function of the enemy
                 Debug.Log("hit");
                 //hit.collider.gameObject.GetComponent<DroneController>().TakeDamage(damage);
-                hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
+                //hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
+                hit.collider.gameObject.SendMessage("TakeDamage", damage);
             }
         }
 
         Instantiate(bulletHole, hit.point, Quaternion.Euler(0, 180, 0));
 
         bulletsLeft--;
-        Invoke("ResetShot", timeBetweenShooting);
+        bulletsShot--;
+        //Invoke("ResetShot", timeBetweenShooting);
         Invoke("ResetState", 0.5f);
 
         if(rocketjumping)
@@ -106,11 +108,10 @@ public class Guns : MonoBehaviour
             pm.rocketJumping = true;
         }
 
-        /*if (bulletsLeft > 0 && bulletsShot > 0)
+        if (bulletsShot == 0)
         {
-            Invoke("Shoot", timeBetweenShots);
-            
-        }*/
+            Invoke("ResetShot", timeBetweenShooting);
+        }
     }
     private void ResetShot()
     {

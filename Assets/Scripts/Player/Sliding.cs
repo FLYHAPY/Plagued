@@ -22,6 +22,7 @@ public class Sliding : MonoBehaviour
     public KeyCode slidekey = KeyCode.LeftControl;
     private float horizontalInput;
     private float verticalInput;
+    public bool wasOnSlope;
 
     private void Start()
     {
@@ -81,9 +82,15 @@ public class Sliding : MonoBehaviour
         else
         {
             rb.AddForce(pm.GetSlopeMoveDirection(inputDirection) * slideForce, ForceMode.Force);
+            wasOnSlope = true;
         }
 
-        if (slideTimer <= 0)
+        if(rb.velocity.magnitude <= 10.1)
+        {
+            wasOnSlope = false;
+        }
+
+        if (slideTimer <= 0 && wasOnSlope == false)
         {
             StopSlide();
         }
