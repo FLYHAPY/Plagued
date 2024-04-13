@@ -89,7 +89,7 @@ public class Guns : MonoBehaviour
                 //call the function of the enemy
                 Debug.Log("hit");
                 //hit.collider.gameObject.GetComponent<DroneController>().TakeDamage(damage);
-                hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
+                hit.collider.gameObject.GetComponent<JuggernautController>().TakeDamage(damage);
             }
         }
 
