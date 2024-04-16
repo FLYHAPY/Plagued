@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c881bf9206720af43bb5166da7b2f351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 6585493067473132496, guid: 43a1d59ce1e685e41a8f6ea174908c49, type: 3}
   bulletcooldown: 2.5
   damage: 2
   health: 40

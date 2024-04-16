@@ -2,33 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class EnemySpawnGroup
+{
+    public string groupName; // Name of the group
+    public List<EnemySpawnInfo> enemySpawnInfos; // List of enemy prefabs and spawn positions for this group
+    public List<GameObject> doorPrefabs; // List of door prefabs for this group
+}
+
+[System.Serializable]
+public class EnemySpawnInfo
+{
+    public GameObject enemyPrefab;
+    public Vector3 spawnPosition;
+}
+
 public class SpawningEnemies : MonoBehaviour
 {
-    public GameObject Enemy;
-    public List<Vector3> spawnPositions; // List to hold the spawn positions
-    public int enemyCount;
+    public List<EnemySpawnGroup> enemySpawnGroups; // List of enemy spawn groups
+    public int maxEnemies = 10; // Maximum number of enemies
+    private int enemyCount = 0; // Current number of enemies
 
     void Start()
     {
-        StartCoroutine(EnemyDrop());
+        StartCoroutine(SpawnEnemySequence());
     }
 
-    IEnumerator EnemyDrop()
+    IEnumerator SpawnEnemySequence()
     {
-        // Ensure there are available spawn positions and enemy count is less than desired
-        while (spawnPositions.Count > 0 && enemyCount < 10)
+        foreach (EnemySpawnGroup group in enemySpawnGroups)
         {
-            // Get the next spawn position from the list
-            Vector3 spawnPosition = spawnPositions[0];
-            spawnPositions.RemoveAt(0); // Remove the used spawn position
+            foreach (EnemySpawnInfo spawnInfo in group.enemySpawnInfos)
+            {
+                // Spawn enemy for this group
+                SpawnEnemy(spawnInfo.enemyPrefab, spawnInfo.spawnPosition);
 
-            // Instantiate enemy at the specified position
-            Instantiate(Enemy, spawnPosition, Quaternion.identity);
+                // Increase enemy count
+                enemyCount++;
 
-            // Increase enemy count
-            enemyCount++;
+                yield return new WaitForSeconds(0.1f);
+            }
 
-            yield return new WaitForSeconds(0.1f);
+            // Spawn doors for this group
+            foreach (GameObject doorPrefab in group.doorPrefabs)
+            {
+                SpawnDoor(doorPrefab, Vector3.zero); // Adjust spawn position as needed
+            }
         }
+    }
+
+    void SpawnEnemy(GameObject enemyPrefab, Vector3 spawnPosition)
+    {
+        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    }
+
+    void SpawnDoor(GameObject doorPrefab, Vector3 spawnPosition)
+    {
+        // Adjust spawn position for door if needed
+        // Example: Vector3 doorSpawnPosition = spawnPosition + new Vector3(0, 1, 0);
+        Instantiate(doorPrefab, spawnPosition, Quaternion.identity);
     }
 }

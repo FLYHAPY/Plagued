@@ -1,28 +1,38 @@
 using UnityEngine;
 
-public class FlamethrowerTrap : MonoBehaviour
+public class FlameThrower : MonoBehaviour
 {
-    public GameObject bulletPrefab; // Prefab da bala
-    public float fireRate = 1f; // Taxa de disparo em segundos
-    public float detectionRange = 20f; // Alcance da detecção
+    public int damageAmount = 10; // Amount of damage to apply to the player
 
-    void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        // Verifique se o jogador está dentro do alcance de detecção
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRange);
-        foreach (Collider collider in colliders)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (collider.CompareTag("Player"))
-            {
-                ShootAtPlayer();
-                break;
-            }
+            ApplyDamage(collision.gameObject);
         }
     }
 
-    void ShootAtPlayer()
+    private void OnTriggerEnter(Collider other)
     {
-        // Instancie a bala na posição e orientação do lançador de chamas
-        Instantiate(bulletPrefab, transform.position, transform.rotation);
+        if (other.gameObject.CompareTag("FlameThrower"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void ApplyDamage(GameObject player)
+    {
+        if (player != null)
+        {
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>(); // Assuming the player has a PlayerHealth component
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damageAmount);
+            }
+            else
+            {
+                Debug.LogWarning("Player does not have a PlayerHealth component!");
+            }
+        }
     }
 }
