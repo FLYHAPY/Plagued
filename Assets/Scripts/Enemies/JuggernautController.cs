@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.AI;
 
 public class JuggernautController : EnemyBase
@@ -6,6 +7,7 @@ public class JuggernautController : EnemyBase
     public GameObject bulletPrefab;
     public float bulletSpeed = 10f;
     public int numBullets = 12;
+    public float burstDelay = 0.1f;
     public float shootCooldown = 2.5f;
     public NavMeshAgent agent;
 
@@ -16,7 +18,7 @@ public class JuggernautController : EnemyBase
         agent.SetDestination(player.transform.position);
         if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown)
         {
-            Shoot();
+            ShootBurst();
             lastShootTime = Time.time;
         }
     }
@@ -35,17 +37,22 @@ public class JuggernautController : EnemyBase
         return false;
     }
 
-    void Shoot()
+    void ShootBurst()
     {
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+        StartCoroutine(BurstRoutine());
+    }
 
+    IEnumerator BurstRoutine()
+    {
         for (int i = 0; i < numBullets; i++)
         {
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Vector3 spreadDirection = Quaternion.Euler(0, Random.Range(-15f, 15f), 0) * direction;
-            bullet.GetComponent<Rigidbody>().velocity = spreadDirection * bulletSpeed;
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
             bullet.GetComponent<Bullets>().damage = damage;
             Destroy(bullet, 3f);
+
+            yield return new WaitForSeconds(burstDelay);
         }
     }
 }
