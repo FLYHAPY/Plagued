@@ -6,7 +6,7 @@ public class Spikes : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player2")
         {
             Destroy(collision.gameObject);
         }

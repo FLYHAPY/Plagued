@@ -6,7 +6,7 @@ public class FlameThrower : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player2"))
         {
             ApplyDamage(collision.gameObject);
         }
