@@ -10,8 +10,14 @@ public class JuggernautController : EnemyBase
     public float burstDelay = 0.1f;
     public float shootCooldown = 2.5f;
     public NavMeshAgent agent;
+    public Transform firePoint;
 
     private float lastShootTime;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player2");
+    }
 
     void Update()
     {
@@ -46,7 +52,7 @@ public class JuggernautController : EnemyBase
     {
         for (int i = 0; i < numBullets; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Vector3 direction = (player.transform.position - transform.position).normalized;
             bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
             bullet.GetComponent<Bullets>().damage = damage;

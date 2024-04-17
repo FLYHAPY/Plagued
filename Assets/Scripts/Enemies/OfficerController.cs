@@ -33,7 +33,7 @@ public class OfficerController : EnemyBase
         Debug.DrawRay(transform.position, direction * Vector3.Distance(transform.position, player.transform.position), Color.red);
         if (Physics.Raycast(transform.position, direction, out hit))
         {
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Player2"))
             {
                 return true;
             }
