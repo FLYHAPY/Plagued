@@ -129,37 +129,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1273799713}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &304637392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 304637393}
-  m_Layer: 0
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &304637393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304637392}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.005, y: -0.12699986, z: 0.96100044}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1532815187}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &417366400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,12 +1958,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1532815187 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6251353130017098879, guid: 9524430ee763dab4cb5a8202fb555984,
-    type: 3}
-  m_PrefabInstance: {fileID: 2583619980494680608}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1567204229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1218143975469369462, guid: 8e673140e3cfbc745b75b98b4d6f7682,
@@ -2625,36 +2588,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 486611671165458246, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 486611671165458246, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      propertyPath: firePoint
-      value: 
-      objectReference: {fileID: 304637393}
-    - target: {fileID: 1477948597510604706, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6096748736631115256, guid: 9524430ee763dab4cb5a8202fb555984,
         type: 3}
       propertyPath: m_Name
       value: Drones
       objectReference: {fileID: 0}
-    - target: {fileID: 6096748736631115256, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8883340375360134966, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 9115012441199400920, guid: 9524430ee763dab4cb5a8202fb555984,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2707,11 +2645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6251353130017098879, guid: 9524430ee763dab4cb5a8202fb555984,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 304637393}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9524430ee763dab4cb5a8202fb555984, type: 3}
 --- !u!1001 &5219257651355710150
