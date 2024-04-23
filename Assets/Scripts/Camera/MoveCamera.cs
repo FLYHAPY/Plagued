@@ -51,6 +51,7 @@ public class MoveCamera : MonoBehaviour
                 if (transform.position == cameraPos.transform.position)
                 {
                     inCutcene = false;
+                    currentIndex = 0;
                 }
             }
 

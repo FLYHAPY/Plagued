@@ -14,6 +14,11 @@ public class OfficerController : EnemyBase
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player2");
+        door = GameObject.FindGameObjectWithTag("door");
+        if(door != null)
+        {
+            door.GetComponent<Door2>().OnEnemySpawned();
+        }
     }
 
     void Update()

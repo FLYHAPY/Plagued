@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spikes : MonoBehaviour
@@ -8,15 +9,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player2")
         {
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Spike")
-        {
-            Destroy(other.gameObject);
+           collision.gameObject.GetComponent<PlayerHealth>().TrapDeath();
         }
     }
 }

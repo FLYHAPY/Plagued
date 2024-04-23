@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         MyInput();
         SpeedControl();
         StateHandler();
@@ -179,6 +179,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (swinging)
         {
+            StopAllCoroutines();
             state = MovementState.swinging;
             desiredMoveSpeed = swingSpeed;
             diferentSpeed = swingSpeed;
@@ -199,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
         //Walking
         else if (grounded)
         {
+            StopAllCoroutines();
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
             diferentSpeed = walkSpeed;
@@ -212,6 +214,10 @@ public class PlayerMovement : MonoBehaviour
         if(Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 6.5  && moveSpeed != 0 && state == MovementState.sliding)
         {
             StopAllCoroutines();
+            StartCoroutine(SmoothlyLerpMoveSpeed());
+        }
+        else if (state == MovementState.rocketjumping)
+        {
             StartCoroutine(SmoothlyLerpMoveSpeed());
         }
         else
@@ -230,7 +236,7 @@ public class PlayerMovement : MonoBehaviour
         while (time < diference)
         {
             moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time/diference);
-            if (OnSlope())
+            if (OnSlope() || rocketJumping)
             {
                 float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 float slopeAngleincrease = 1 + (slopeAngle / 90f);
@@ -282,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        if(state != MovementState.sliding && rb.velocity.magnitude <= 7)
+        if(state != MovementState.sliding && state != MovementState.air && rb.velocity.magnitude <= 7)
         {
             StopAllCoroutines();
         }
