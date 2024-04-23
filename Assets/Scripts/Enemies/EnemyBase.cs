@@ -10,6 +10,7 @@ public abstract class EnemyBase : MonoBehaviour
     public float health;
     public float speed;
     public Rigidbody rb;
+    public GameObject door;
 
 
     public void TakeDamage(int damage)
@@ -24,6 +25,10 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void Die()
     {
+        if(door != null)
+        {
+            door.GetComponent<Door2>().OnEnemyDestroyed();
+        }
         Destroy(gameObject);
     }
 }

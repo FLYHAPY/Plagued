@@ -93,6 +93,10 @@ public class Guns : MonoBehaviour
                 hit.collider.gameObject.SendMessage("TakeDamage", damage);
 
             }
+            else if (hit.collider.CompareTag("cable"))
+            {
+                Destroy(hit.collider.gameObject);
+            }
         }
 
         Instantiate(bulletHole, hit.point, Quaternion.Euler(0, 180, 0));

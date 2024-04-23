@@ -9,8 +9,7 @@ public class EnemySpawnGroup
     public List<EnemySpawnInfo> enemySpawnInfos; // List of enemy prefabs and spawn positions for this group
     public List<GameObject> doorPrefabs; // List of door prefabs for this group
 }
-
-[System.Serializable]
+/*
 public class EnemySpawnInfo
 {
     public GameObject enemyPrefab;
@@ -62,4 +61,4 @@ public class SpawningEnemies : MonoBehaviour
         // Example: Vector3 doorSpawnPosition = spawnPosition + new Vector3(0, 1, 0);
         Instantiate(doorPrefab, spawnPosition, Quaternion.identity);
     }
-}
+}*/
