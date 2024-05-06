@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2910323208805167918}
   - component: {fileID: 853960314206001192}
   - component: {fileID: 2921842139988938894}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6347835649927776600}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7137882879475227973}
   - component: {fileID: 3997628294355014970}
   - component: {fileID: 5249657451343886152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sniper
   m_TagString: Enemy
   m_Icon: {fileID: 0}

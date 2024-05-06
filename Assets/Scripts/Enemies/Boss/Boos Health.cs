@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoosHealth : MonoBehaviour
 {
-    public int health = 100; // Initial health value
+    public float health = 100; // Initial health value
+    public float maxHealth = 100;
+    public Image healthImage;
     public List<GameObject> objectsToDelete; // List of objects to delete
     private HashSet<GameObject> deletedObjects; // Track deleted objects
 
@@ -22,8 +23,10 @@ public class BoosHealth : MonoBehaviour
         {
             if (obj == null && !deletedObjects.Contains(obj))
             {
-                health -= 100; // Reduce health by 10 when an object is deleted
+                health -= 50; // Reduce health by 10 when an object is deleted
                 deletedObjects.Add(obj); // Mark the object as deleted
+                float fillAmount = CalculateFillAmount(health);
+                healthImage.fillAmount = fillAmount;
             }
         }
 
@@ -33,5 +36,10 @@ public class BoosHealth : MonoBehaviour
             Debug.Log("Game Over!");
             Destroy(gameObject);
         }
+    }
+
+    float CalculateFillAmount(float currentHealth)
+    {
+        return currentHealth / maxHealth;
     }
 }

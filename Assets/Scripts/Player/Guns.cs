@@ -18,7 +18,8 @@ public class Guns : MonoBehaviour
     public float timeBetweenShots;  
     public float force;
     public float yes;
-    private int bulletsLeft, bulletsShot;
+    public int bulletsLeft;
+    private int bulletsShot;
 
     [Header("Bools")]
     public bool allowButtonHold, shooting, readyToShoot, reloading, rocketjumping;
@@ -29,8 +30,10 @@ public class Guns : MonoBehaviour
     public RaycastHit hit;
     public LayerMask whatIsEnemy;
     public GameObject bulletHole;
+    public GameObject muzzleFlash;
     public Rigidbody rb;
     public PlayerMovement pm;
+    public GameManager gameManager;
 
 
     private void Update()
@@ -58,7 +61,7 @@ public class Guns : MonoBehaviour
             Reload();
         }
 
-        if(readyToShoot && shooting && !reloading && bulletsLeft > 0) 
+        if(readyToShoot && shooting && !reloading && bulletsLeft > 0 && gameManager.state != State.Paused) 
         {
             bulletsShot = bulletsPerTap;
             for (int i = 0; i < bulletsPerTap; i++)
@@ -99,7 +102,12 @@ public class Guns : MonoBehaviour
             }
         }
 
-        Instantiate(bulletHole, hit.point, Quaternion.Euler(0, 180, 0));
+        Quaternion rotation = Quaternion.LookRotation(hit.normal);
+
+
+        Instantiate(bulletHole, hit.point, rotation);
+        GameObject newObject = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        newObject.transform.parent = transform;
 
         bulletsLeft--;
         bulletsShot--;

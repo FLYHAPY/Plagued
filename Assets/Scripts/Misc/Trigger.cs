@@ -6,6 +6,7 @@ public class Trigger : MonoBehaviour
 {
     // Start is called before the first frame update
     private GameObject cameraHolder;
+    public GameObject bossUI;
     void Start()
     {
         cameraHolder = GameObject.FindGameObjectWithTag("Camera");
@@ -16,6 +17,8 @@ public class Trigger : MonoBehaviour
         if (other.gameObject.tag == "Player2")
         {
             cameraHolder.GetComponent<MoveCamera>().inCutcene = true;
+            other.gameObject.GetComponent<PlayerHealth>().respawnPoint = gameObject;
+            bossUI.gameObject.SetActive(true);
         }
     }
 }

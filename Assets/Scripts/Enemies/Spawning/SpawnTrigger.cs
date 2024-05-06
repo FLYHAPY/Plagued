@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -18,7 +19,7 @@ public class SpawnTrigger : MonoBehaviour
 
     public bool triggered;
 
-    private bool doorspawned = false;
+    public bool doorspawned = false;
 
     public bool isWaves;
     public bool wavesStarted;
@@ -30,12 +31,20 @@ public class SpawnTrigger : MonoBehaviour
     public float timer;
     public float maxTimer;
 
+    public TextMeshProUGUI text;
+
+    private void Start()
+    {
+        timer = maxTimer;   
+    }
+
 
     private void Update()
     {
         //normal
         if (triggered == true && doorspawned == false && !isWaves)
         {
+            text.text = "Defeat the all enemies";
             Instantiate(TypeOfDoor, doorspawnposition, Quaternion.identity);
             SpawnEnemies();
             doorspawned = true;
@@ -50,13 +59,55 @@ public class SpawnTrigger : MonoBehaviour
             wavesStarted = true;
         }
 
+        //cheats
+        if(triggered)
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                //normal
+                if (!isWaves)
+                {
+                    GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+                    foreach (GameObject enemy in allEnemiesLeft)
+                    {
+                        enemy.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
+                    }
+                }
+                if (isWaves)
+                {
+                    GameObject[] allBullets = GameObject.FindGameObjectsWithTag("bullet");
+                    foreach (GameObject bullet in allBullets)
+                    {
+                        Destroy(bullet);
+                    }
+
+                    GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+                    foreach (GameObject enemy in allEnemiesLeft)
+                    {
+                        timer = maxTimer;
+                        StopAllCoroutines();
+                        GameObject[] allEnemiesLeft2 = GameObject.FindGameObjectsWithTag("Enemy");
+                        foreach (GameObject enemy2 in allEnemiesLeft2)
+                        {
+                            Destroy(enemy2);
+                        }
+                        GameObject wavedoor = GameObject.FindGameObjectWithTag("WaveDoor");
+                        Destroy(wavedoor);
+                        wavesStarted = false;
+                        text.text = "";
+                    }
+                }
+            }
+        }
+
         if(wavesStarted == true)
         {
-            timer += Time.deltaTime;
+            text.text = "Survive for:" + (int)timer;
+            timer -= Time.deltaTime;
         }
-        if(timer >= maxTimer)
+        if(timer <= 0)
         {
-            timer = 0;
+            timer = maxTimer;
             StopAllCoroutines();
             GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject enemy in allEnemiesLeft)
@@ -66,6 +117,13 @@ public class SpawnTrigger : MonoBehaviour
             GameObject wavedoor = GameObject.FindGameObjectWithTag("WaveDoor");
             Destroy(wavedoor);
             wavesStarted = false;
+            text.text = "";
+
+            GameObject[] allBullets = GameObject.FindGameObjectsWithTag("bullet");
+            foreach (GameObject bullet in allBullets)
+            {
+                Destroy(bullet);
+            }
         }
     }
     private void OnTriggerEnter(Collider collision)
@@ -73,6 +131,7 @@ public class SpawnTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player2"))
         {
             triggered = true;
+            collision.gameObject.GetComponent<PlayerHealth>().respawnPoint = gameObject;
         }
     }
     //normal spawn
@@ -94,5 +153,10 @@ public class SpawnTrigger : MonoBehaviour
             SpawnEnemies();
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    public void StopCoroutines()
+    {
+        StopAllCoroutines();
     }
 }

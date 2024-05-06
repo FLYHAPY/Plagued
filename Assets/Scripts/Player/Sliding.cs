@@ -61,7 +61,7 @@ public class Sliding : MonoBehaviour
     {
         pm.sliding = true;
 
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYscale, playerObj.localScale.z);
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, slideYscale, gameObject.transform.localScale.z);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         //We do this because when shrinking the player he starts floating so we quickly add a force to push him to the ground
     }
@@ -99,7 +99,7 @@ public class Sliding : MonoBehaviour
     private void StopSlide()
     {
         pm.sliding = false;
-        playerObj.localScale = new Vector3(playerObj.localScale.x, startYscale, playerObj.localScale.z);
+        gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x, startYscale, gameObject.transform.localScale.z);
         slideTimer = maxSlideTime;
     }
 }

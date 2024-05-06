@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 176044598709241743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.571}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -160,6 +160,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   force: 5
   yes: 0
+  bulletsLeft: 0
   allowButtonHold: 1
   shooting: 0
   readyToShoot: 0
@@ -169,11 +170,13 @@ MonoBehaviour:
   attackPoint: {fileID: 1478493911600213681}
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 239
-  bulletHole: {fileID: 5267676610466481404, guid: b1a2d46416e63b3499e9133e4ecebed0,
+    m_Bits: 511
+  bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   rb: {fileID: 0}
   pm: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &1888277293822512706
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +324,7 @@ Transform:
   m_GameObject: {fileID: 5960080000304195661}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.571}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -356,8 +359,8 @@ Transform:
   m_GameObject: {fileID: 6464222846224489922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999962, y: -0.29999992, z: 1.0999985}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalPosition: {x: 0.39999962, y: -0.29999992, z: 0.719}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.49}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1527658004339725653}
@@ -456,6 +459,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   force: 5
   yes: 0
+  bulletsLeft: 0
   allowButtonHold: 0
   shooting: 0
   readyToShoot: 0
@@ -465,11 +469,13 @@ MonoBehaviour:
   attackPoint: {fileID: 1527658004339725653}
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 239
-  bulletHole: {fileID: 5267676610466481404, guid: b1a2d46416e63b3499e9133e4ecebed0,
+    m_Bits: 511
+  bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   rb: {fileID: 0}
   pm: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &7075016785205723862
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +501,7 @@ Transform:
   m_GameObject: {fileID: 7075016785205723862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.571}
+  m_LocalPosition: {x: 0, y: 0, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -531,7 +537,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.39999962, y: -0.29999992, z: 1.0999985}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.38, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1781203394568889337}
@@ -630,6 +636,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   force: 5
   yes: 0
+  bulletsLeft: 0
   allowButtonHold: 1
   shooting: 0
   readyToShoot: 0
@@ -639,11 +646,13 @@ MonoBehaviour:
   attackPoint: {fileID: 1781203394568889337}
   whatIsEnemy:
     serializedVersion: 2
-    m_Bits: 239
-  bulletHole: {fileID: 5267676610466481404, guid: b1a2d46416e63b3499e9133e4ecebed0,
+    m_Bits: 511
+  bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4,
     type: 3}
   rb: {fileID: 0}
   pm: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &7398129371869796532
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +819,7 @@ Transform:
   m_GameObject: {fileID: 8473520405363138549}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -983,4 +992,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100c955390ddc0742bf4612fef1826da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assultRifle: {fileID: 0}
+  shotgun: {fileID: 0}
+  pistol: {fileID: 0}
+  gameManager: {fileID: 0}
+  bulletText: {fileID: 0}
   currentWeapon: 0

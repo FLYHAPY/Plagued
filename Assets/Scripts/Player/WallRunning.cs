@@ -28,6 +28,7 @@ public class WallRunning : MonoBehaviour
     private RaycastHit rightWallHit;
     private bool wallLeft;
     private bool wallRight;
+    public GameObject wallHit;
 
     [Header("Gravity")]
     public bool useGravity;
@@ -50,6 +51,10 @@ public class WallRunning : MonoBehaviour
     {
         CheckForWall();
         StateMachine();
+        if(!AboveGround())
+        {
+            wallHit = null;
+        }
     }
 
     private void FixedUpdate()
@@ -70,6 +75,18 @@ public class WallRunning : MonoBehaviour
         return !Physics.Raycast(transform.position, Vector3.down, minJumpheight, whatIsGround);
     }
 
+    private bool isTouchingLastWall()
+    {
+        if((wallRight == true && wallHit == rightWallHit.collider.gameObject) || (wallLeft == true && wallHit == leftWallHit.collider.gameObject))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void StateMachine()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -78,7 +95,7 @@ public class WallRunning : MonoBehaviour
         //Wallrunning
         if ((wallLeft || wallRight) && verticalInput > 0 && AboveGround() && !exitingWall)
         {
-            if (!pm.wallRunning)
+            if (!pm.wallRunning && !isTouchingLastWall())
                 StartWallRun();
 
             // wallrun timer
@@ -105,7 +122,7 @@ public class WallRunning : MonoBehaviour
             if (exitWallTimer > 0)
                 exitWallTimer -= Time.deltaTime;
 
-            if (exitWallTimer <= 0)
+            if (exitWallTimer <= 0 )
                 exitingWall = false;
         }
 
@@ -119,6 +136,14 @@ public class WallRunning : MonoBehaviour
 
     private void StartWallRun()
     {
+        if (wallRight == true)
+        {
+            wallHit = rightWallHit.collider.gameObject;
+        }
+        if (wallLeft == true)
+        {
+            wallHit = leftWallHit.collider.gameObject;
+        }
         pm.wallRunning = true;
         wallRunTimer = maxWallRunTime;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
