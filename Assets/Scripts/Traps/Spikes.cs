@@ -8,15 +8,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player2")
         {
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Spike")
-        {
-            Destroy(other.gameObject);
+            collision.gameObject.GetComponent<PlayerHealth>().TrapDeath();
         }
     }
 }

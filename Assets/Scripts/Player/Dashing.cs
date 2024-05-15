@@ -39,6 +39,7 @@ public class Dashing : MonoBehaviour
         if(Input.GetKeyDown(dashKey))
         {
             Debug.Log("yes");
+            pm.StopAll();
             Dash();
         }
 

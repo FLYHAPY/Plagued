@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BoosHealth : MonoBehaviour
@@ -33,13 +34,17 @@ public class BoosHealth : MonoBehaviour
         if (health <= 0)
         {
             // Handle game over or object destruction logic here
-            Debug.Log("Game Over!");
-            Destroy(gameObject);
+            LoadScene("You win");
         }
     }
 
     float CalculateFillAmount(float currentHealth)
     {
         return currentHealth / maxHealth;
+    }
+
+    public void LoadScene(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
     }
 }

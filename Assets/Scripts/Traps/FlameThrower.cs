@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class FlameThrower : MonoBehaviour
 {
-    public int damageAmount = 10; // Amount of damage to apply
+    public int damageAmount = 1; // Amount of damage to apply
     public ParticleSystem flameParticles; // Reference to the particle system
     private bool playerInside = false; // Flag to track if the player is inside the trigger area
-    public bool canDealDamage = false; // Flag to track if the player is inside the trigger area
+    private bool canDealDamage = false; // Flag to track if the FlameThrower can deal damage
+    private float damageInterval = 1f; // Interval between each application of damage (1 second)
+    private float lastDamageTime; // Time when the last damage was applied
 
     private void Start()
     {
         flameParticles = GetComponentInChildren<ParticleSystem>();
         StartCoroutine(FireFlameThrower());
+        lastDamageTime = -damageInterval; // Initialize the last damage time to ensure immediate damage application
     }
 
     private System.Collections.IEnumerator FireFlameThrower()
@@ -23,7 +26,7 @@ public class FlameThrower : MonoBehaviour
 
             yield return new WaitForSeconds(2f); // Fire duration
 
-            // Stop the particle system
+            // Deactivate the particle system
             flameParticles?.Stop();
             canDealDamage = false;
 
@@ -31,45 +34,39 @@ public class FlameThrower : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player2"))
         {
-            playerInside = true;
-            // Apply damage only if the particle system is playing
-            if (flameParticles != null && flameParticles.isPlaying && canDealDamage)
+            float currentTime = Time.time;
+            float timeSinceLastDamage = currentTime - lastDamageTime;
+            Debug.Log("Current Time: " + currentTime + ", Last Damage Time: " + lastDamageTime + ", Time Since Last Damage: " + timeSinceLastDamage);
+
+            if (timeSinceLastDamage > damageInterval)
             {
-                ApplyDamageToPlayer(other.gameObject);
+                // Apply damage only if enough time has passed since the last damage
+                if (canDealDamage)
+                {
+                    ApplyDamageToPlayer(other.gameObject);
+                    lastDamageTime = currentTime; // Update the time of the last damage application
+                }
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player2"))
-        {
-            playerInside = false;
-        }
-    }
+
 
     private void ApplyDamageToPlayer(GameObject player)
     {
-        if (flameParticles != null && flameParticles.isPlaying)
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
         {
-            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damageAmount);
-                Debug.Log("Damage Applied: " + damageAmount + " to the player.");
-            }
-            else
-            {
-                Debug.LogWarning("Player does not have a PlayerHealth component!");
-            }
+            playerHealth.TrapDeath();
+            Debug.Log("Damage Applied: " + damageAmount + " to the player.");
         }
         else
         {
-            Debug.LogWarning("FlameThrower particle system is not playing!");
+            Debug.LogWarning("Player does not have a PlayerHealth component!");
         }
     }
 }

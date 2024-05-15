@@ -33,7 +33,7 @@ public class JuggernautController : EnemyBase
     {
         RaycastHit hit;
         Vector3 direction = (player.transform.position - transform.position).normalized;
-        if (Physics.Raycast(transform.position, direction, out hit))
+        if (Physics.Raycast(transform.position, direction, out hit, Mathf.Infinity, layerMask))
         {
             if (hit.collider.CompareTag("Player2"))
             {

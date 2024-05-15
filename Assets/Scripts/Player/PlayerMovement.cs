@@ -144,13 +144,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if (rocketJumping)
+        if (rocketJumping && !dashing)
         {
             state = MovementState.rocketjumping;
             desiredMoveSpeed = rocketJumpSpeed;
         }
         else if(dashing)
         {
+            StopAllCoroutines();
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             diferentSpeed = dashSpeed;
@@ -345,5 +346,10 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+    }
+
+    public void StopAll()
+    {
+        StopAllCoroutines();
     }
 }

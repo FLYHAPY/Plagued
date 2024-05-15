@@ -125,6 +125,10 @@ MonoBehaviour:
   health: 50
   speed: 0
   rb: {fileID: 0}
+  door: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 511
   bulletPrefab: {fileID: 1658204890063671044, guid: cd5a749ce6f0d86428fe38a1773d5a71,
     type: 3}
   bulletSpeed: 10

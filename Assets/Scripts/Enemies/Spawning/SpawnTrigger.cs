@@ -151,7 +151,7 @@ public class SpawnTrigger : MonoBehaviour
         while (true)
         {
             SpawnEnemies();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

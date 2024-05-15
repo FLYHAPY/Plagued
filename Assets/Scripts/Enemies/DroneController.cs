@@ -33,7 +33,7 @@ public class DroneController : EnemyBase
 
         Debug.DrawRay(transform.position, direction * Vector3.Distance(transform.position, player.transform.position), Color.red);
 
-        if (Physics.Raycast(transform.position, direction, out hit))
+        if (Physics.Raycast(transform.position, direction, out hit, Mathf.Infinity, layerMask))
         {
             //Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
 

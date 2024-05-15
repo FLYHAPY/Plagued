@@ -11,6 +11,7 @@ public abstract class EnemyBase : MonoBehaviour
     public float speed;
     public Rigidbody rb;
     public GameObject door;
+    public LayerMask layerMask;
 
 
     public void TakeDamage(int damage)
