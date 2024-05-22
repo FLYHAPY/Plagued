@@ -274,12 +274,6 @@ Transform:
   - {fileID: 248860496}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &183323008 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3395096002235218241, guid: 7ac3dc814ae049745b89c867dd5ea0ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 317725171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &220169805 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7259864372364295666, guid: 43a1d59ce1e685e41a8f6ea174908c49,
@@ -601,7 +595,7 @@ PrefabInstance:
         type: 3}
       propertyPath: objectsToDelete.Array.data[0]
       value: 
-      objectReference: {fileID: 183323008}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2221,7 +2215,7 @@ PrefabInstance:
     - target: {fileID: 126088753970657178, guid: 2d3f49ece1f17e144a06a2ae4ebf7a13,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.65
+      value: 1.52
       objectReference: {fileID: 0}
     - target: {fileID: 126088753970657178, guid: 2d3f49ece1f17e144a06a2ae4ebf7a13,
         type: 3}

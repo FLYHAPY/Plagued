@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum State
@@ -19,9 +20,10 @@ public class GameManager : MonoBehaviour
     public State state;
     public GameObject paused;
     public GameObject areYouSure;
+    public DialogueSystem dialogueSystem;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && state == State.Playing)
+        if (Input.GetKeyDown(KeyCode.Escape) && state == State.Playing && !dialogueSystem.inDialogue)
         {
             Activate();
             Cursor.lockState = CursorLockMode.None;
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     public void Sure()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void No()

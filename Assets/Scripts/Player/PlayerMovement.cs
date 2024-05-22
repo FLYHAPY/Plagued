@@ -151,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(dashing)
         {
-            StopAllCoroutines();
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
             diferentSpeed = dashSpeed;
@@ -219,6 +218,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (state == MovementState.rocketjumping)
         {
+            StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
         }
         else
@@ -289,7 +289,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        if(state != MovementState.sliding && state != MovementState.air && rb.velocity.magnitude <= 7)
+        if(state != MovementState.sliding && state != MovementState.air && state != MovementState.rocketjumping && state != MovementState.dashing && rb.velocity.magnitude <= 7)
         {
             StopAllCoroutines();
         }

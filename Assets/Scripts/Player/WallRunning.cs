@@ -39,6 +39,7 @@ public class WallRunning : MonoBehaviour
     public Transform orientation;
     private PlayerMovement pm;
     private Rigidbody rb;
+    public PlayerCam pc;
 
     private void Start()
     {
@@ -100,13 +101,24 @@ public class WallRunning : MonoBehaviour
 
             // wallrun timer
             if (wallRunTimer > 0)
+            {
                 wallRunTimer -= Time.deltaTime;
+                if (wallRight)
+                {
+                    pc.RotateLeft();
+                }else if (wallLeft)
+                {
+                    pc.RotateRight();
+                }
+            }
+                
 
             if (wallRunTimer <= 0 && pm.wallRunning)
             {
                 exitingWall = true;
                 exitWallTimer = exitWallTime;
                 StopWallRun();
+                pc.GoBack();
             }
 
             // wall jump
@@ -172,6 +184,7 @@ public class WallRunning : MonoBehaviour
 
     private void StopWallRun()
     {
+        pc.GoBack();
         pm.wallRunning = false;
     }
 
