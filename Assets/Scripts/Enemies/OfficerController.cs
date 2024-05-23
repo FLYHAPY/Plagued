@@ -78,7 +78,7 @@ public class OfficerController : EnemyBase
         RaycastHit hit;
         Vector3 direction = cam.transform.forward;
         Debug.DrawRay(cam.transform.position, direction * 10000000, Color.blue);
-        if (Physics.SphereCast(cam.transform.position, 2, cam.transform.forward, out hit, 100000, layerMask))
+        if (Physics.SphereCast(cam.transform.position, 1.5f, cam.transform.forward, out hit, 100000, layerMask))
         {
             if (hit.collider.gameObject == gameObject)
             {

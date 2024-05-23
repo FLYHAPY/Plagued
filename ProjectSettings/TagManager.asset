@@ -16,6 +16,8 @@ TagManager:
   - objective
   - bullet
   - hide
+  - Ground
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -27,8 +29,8 @@ TagManager:
   - whatIsGrappleable
   - whatisEnemy
   - notEnemy
-  - 
-  - 
+  - gun
+  - grenade
   - 
   - 
   - 

@@ -9,10 +9,16 @@ public class JuggernautController : EnemyBase
     public int numBullets = 12;
     public float burstDelay = 0.1f;
     public float shootCooldown = 2.5f;
+    public float shootGrenadeCooldown;
     public NavMeshAgent agent;
     public Transform firePoint;
 
     private float lastShootTime;
+
+    public GameObject grenadePrefab;
+
+    public float grenadeSpeed = 10f;
+    public float speedIncreaseFactor;
 
     private void Start()
     {
@@ -22,9 +28,17 @@ public class JuggernautController : EnemyBase
     void Update()
     {
         agent.SetDestination(player.transform.position);
-        if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown)
+        if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown && health > 20)
         {
             ShootBurst();
+            lastShootTime = Time.time;
+        }
+
+        if (health <= 20 && CanSeePlayer() && Time.time - lastShootTime >= shootGrenadeCooldown)
+        {
+
+            StopAllCoroutines();
+            ShootGrenade();
             lastShootTime = Time.time;
         }
     }
@@ -60,5 +74,34 @@ public class JuggernautController : EnemyBase
 
             yield return new WaitForSeconds(burstDelay);
         }
+    }
+
+    public void ShootGrenade()
+    {
+        // Calculate direction from grenade launcher to player
+        Vector3 direction = player.transform.position - transform.position;
+
+        // Calculate the time it takes for the grenade to reach the player in the horizontal plane
+        float timeToReachPlayer = direction.magnitude / grenadeSpeed;
+
+        // Calculate the vertical displacement due to gravity during the time to reach the player
+        float verticalDisplacement = 0.5f * -Physics.gravity.y * timeToReachPlayer * timeToReachPlayer;
+
+        // Adjust the player's position considering the vertical displacement
+        Vector3 adjustedPlayerPosition = player.transform.position + new Vector3(0f, verticalDisplacement, 0f);
+
+        // Recalculate direction from grenade launcher to adjusted player position
+        direction = adjustedPlayerPosition - transform.position;
+
+        // Calculate the initial velocity required to reach the adjusted player position
+        Vector3 initialVelocity = direction / timeToReachPlayer;
+
+        // Create the grenade and apply initial velocity
+        GameObject grenade = Instantiate(grenadePrefab, transform.position, Quaternion.identity);
+        Rigidbody rb = grenade.GetComponent<Rigidbody>();
+        rb.velocity = initialVelocity;
+
+        // Apply gravity to the grenade
+        rb.useGravity = true;
     }
 }

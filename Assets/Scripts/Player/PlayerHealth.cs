@@ -30,7 +30,6 @@ public class PlayerHealth : MonoBehaviour
         if (!cheatOn)
         {
             currentHealth -= damage;
-            Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
 
             float fillAmount = CalculateFillAmount(currentHealth);
             health.fillAmount = fillAmount;
