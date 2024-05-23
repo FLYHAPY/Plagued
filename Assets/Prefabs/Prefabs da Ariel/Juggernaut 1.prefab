@@ -332,5 +332,5 @@ MonoBehaviour:
   firePoint: {fileID: 2333489732879606614}
   grenadePrefab: {fileID: 6061715043980008681, guid: c93520c34bebced408b73cd930bf733b,
     type: 3}
-  grenadeSpeed: 40
+  grenadeSpeed: 25
   speedIncreaseFactor: 1

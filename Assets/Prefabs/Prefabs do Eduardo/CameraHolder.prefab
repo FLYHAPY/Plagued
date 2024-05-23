@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e87260121595ad343bc5becd217f9b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 10
   magazineSize: 30
   bulletsPerTap: 1
   timeBetweenShooting: 0.1
