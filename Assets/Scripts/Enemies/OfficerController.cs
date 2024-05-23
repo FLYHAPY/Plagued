@@ -12,12 +12,16 @@ public class OfficerController : EnemyBase
     public float shootCooldown = 1f;
     public NavMeshAgent agent;
     public Transform firePoint;
+    public bool saw;
+    public float sawTimer;
+    public float maxSawTimer;
 
     private float lastShootTime;
 
     private void Start()
     {
-        cam = GameObject.FindGameObjectWithTag("Camera");
+        hidingSpots = World.Instance.GetHidingSpots();
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
         player = GameObject.FindGameObjectWithTag("Player2");
         door = GameObject.FindGameObjectWithTag("door");
         if(door != null)
@@ -28,11 +32,11 @@ public class OfficerController : EnemyBase
 
     void Update()
     {
-        if (!CanThePlayerSee())
+        if (!CanThePlayerSee() && saw == false)
         {
             agent.SetDestination(player.transform.position);
         }
-        else
+        else if(saw == true)
         {
             Hide();
         }
@@ -41,6 +45,17 @@ public class OfficerController : EnemyBase
             Shoot();
             lastShootTime = Time.time;
         };
+
+        if (saw)
+        {
+            sawTimer += Time.deltaTime;
+        }
+
+        if(sawTimer >= maxSawTimer)
+        {
+            saw = false;
+            sawTimer = 0f;
+        }
     }
 
     bool CanSeePlayer()
@@ -48,7 +63,7 @@ public class OfficerController : EnemyBase
         RaycastHit hit;
         Vector3 direction = (player.transform.position - transform.position).normalized;
         Debug.DrawRay(transform.position, direction * Vector3.Distance(transform.position, player.transform.position), Color.red);
-        if (Physics.Raycast(transform.position, direction, out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, direction * 100, out hit, Mathf.Infinity, layerMask))
         {
             if (hit.collider.CompareTag("Player2"))
             {
@@ -61,12 +76,14 @@ public class OfficerController : EnemyBase
     bool CanThePlayerSee()
     {
         RaycastHit hit;
-        // Debug.DrawRay(transform.position, direction * Vector3.Distance(transform.position, player.transform.position), Color.red);
         Vector3 direction = cam.transform.forward;
-        if (Physics.Raycast(player.transform.position, direction, out hit, Mathf.Infinity, layerMask))
+        Debug.DrawRay(cam.transform.position, direction * 10000000, Color.blue);
+        if (Physics.SphereCast(cam.transform.position, 2, cam.transform.forward, out hit, 100000, layerMask))
         {
             if (hit.collider.gameObject == gameObject)
             {
+                saw = true;
+                Debug.Log("true");
                 return true;
             }
         }
@@ -97,7 +114,7 @@ public class OfficerController : EnemyBase
 
         for (int i = 0; i < hidingSpots.Length; i++)
         {
-            Vector3 hideDir = hidingSpots[i].transform.position - target.transform.position;
+            Vector3 hideDir = hidingSpots[i].transform.position - player.transform.position;
             Vector3 hidepos = hidingSpots[i].transform.position + hideDir.normalized * 5;
             if (Vector3.Distance(transform.position, hidepos) < dist)
             {

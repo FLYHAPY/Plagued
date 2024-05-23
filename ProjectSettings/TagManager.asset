@@ -15,6 +15,7 @@ TagManager:
   - WaveDoor
   - objective
   - bullet
+  - hide
   layers:
   - Default
   - TransparentFX
