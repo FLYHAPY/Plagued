@@ -756,6 +756,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RRINPLACE
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 94fb7c964ca19da4f9be88451d74fa5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -860,6 +865,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RedRobotINPLACE
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7ca562e8a6f543a4dac4a2b20ceff3cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1999,6 +2009,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d24eacd9c424343b45405a73473eb5, type: 3}
+--- !u!114 &1498560282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6237481794122845078, guid: 89d24eacd9c424343b45405a73473eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1492285205}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1507057324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3295619911253477866, guid: 89d24eacd9c424343b45405a73473eb5,
@@ -3018,6 +3040,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1449292649}
+    - target: {fileID: 5781712801334834553, guid: adcb8e6174e95e04d9ab8ad64b084db5,
+        type: 3}
+      propertyPath: rotationDuration
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7322363530008377220, guid: adcb8e6174e95e04d9ab8ad64b084db5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3076,7 +3103,7 @@ PrefabInstance:
     - target: {fileID: 7944257854567256147, guid: adcb8e6174e95e04d9ab8ad64b084db5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3159,6 +3186,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1182299448449201265, guid: 43a1d59ce1e685e41a8f6ea174908c49,
+        type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1498560282}
     - target: {fileID: 4095751061249892897, guid: 43a1d59ce1e685e41a8f6ea174908c49,
         type: 3}
       propertyPath: playerCam
