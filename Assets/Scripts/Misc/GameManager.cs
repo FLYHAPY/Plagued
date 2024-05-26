@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public enum State
+public enum State2
 {
     Paused,
     Playing
@@ -17,18 +17,18 @@ public class GameManager : MonoBehaviour
     public GameObject pauseButton;
     public GameObject sureButton;
     public GameObject noButton;
-    public State state;
+    public State2 state;
     public GameObject paused;
     public GameObject areYouSure;
     public DialogueSystem dialogueSystem;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && state == State.Playing && !dialogueSystem.inDialogue)
+        if (Input.GetKeyDown(KeyCode.Escape) && state == State2.Playing && !dialogueSystem.inDialogue)
         {
             Activate();
             Cursor.lockState = CursorLockMode.None;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && state == State.Paused)
+        else if (Input.GetKeyDown(KeyCode.Escape) && state == State2.Paused)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Deactivate();
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void Deactivate()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        state = State.Playing;
+        state = State2.Playing;
         paused.SetActive(false);
         panel.SetActive(false);
         resumeButton.SetActive(false);
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void Activate()
     {
-        state = State.Paused;
+        state = State2.Paused;
         paused.SetActive(true);
         Time.timeScale = 0f;
         panel.SetActive(true); 

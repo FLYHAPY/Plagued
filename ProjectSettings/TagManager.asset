@@ -18,6 +18,7 @@ TagManager:
   - hide
   - Ground
   - Explosion
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

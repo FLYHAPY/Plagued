@@ -61,7 +61,7 @@ public class Guns : MonoBehaviour
             Reload();
         }
 
-        if(readyToShoot && shooting && !reloading && bulletsLeft > 0 && gameManager.state != State.Paused) 
+        if(readyToShoot && shooting && !reloading && bulletsLeft > 0 && gameManager.state != State2.Paused) 
         {
             bulletsShot = bulletsPerTap;
             for (int i = 0; i < bulletsPerTap; i++)
@@ -100,12 +100,12 @@ public class Guns : MonoBehaviour
             {
                 Destroy(hit.collider.gameObject);
             }
+
+            Quaternion rotation = Quaternion.LookRotation(hit.normal);
+            GameObject bullethole = Instantiate(bulletHole, hit.point, rotation);
+            bullethole.transform.parent = hit.collider.gameObject.transform;
         }
 
-        Quaternion rotation = Quaternion.LookRotation(hit.normal);
-
-
-        Instantiate(bulletHole, hit.point, rotation);
         GameObject newObject = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
         newObject.transform.parent = transform;
 

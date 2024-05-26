@@ -26,7 +26,7 @@ public class Weapon_Switcher : MonoBehaviour
     void Update()
     {
         float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
-        if (gameManager.state != State.Paused)
+        if (gameManager.state != State2.Paused)
         {
             if (scrollWheelInput > 0f)
             {

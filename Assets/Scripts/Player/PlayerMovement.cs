@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     float vertInput;
     Vector3 moveDirection;
     Rigidbody rb;
+    public ParticleSystem particle;
+    public bool particleIsPlaying;
 
     //the current state of the player
     public MovementState state;
@@ -289,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        if(state != MovementState.sliding && state != MovementState.air && state != MovementState.rocketjumping && state != MovementState.dashing && rb.velocity.magnitude <= 7)
+        if(state != MovementState.sliding && state != MovementState.air && state != MovementState.rocketjumping && state != MovementState.dashing && moveSpeed <= 7)
         {
             StopAllCoroutines();
         }
@@ -313,6 +315,19 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
+        }
+
+        if (state == MovementState.rocketjumping || dashing == true)
+        {
+            particle.Play();
+        }
+        else if (moveSpeed >= 7.1 && state != MovementState.rocketjumping && !dashing)
+        {
+            particle.Play();
+        }
+        else if (moveSpeed <= 7)
+        {
+            particle.Stop();
         }
     }
 
