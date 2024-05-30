@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class State {
+public class State: MonoBehaviour {
 
     public enum STATE {
 

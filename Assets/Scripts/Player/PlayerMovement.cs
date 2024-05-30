@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -317,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (state == MovementState.rocketjumping || dashing == true)
+        /*if (state == MovementState.rocketjumping || dashing == true)
         {
             particle.Play();
         }
@@ -328,6 +329,38 @@ public class PlayerMovement : MonoBehaviour
         else if (moveSpeed <= 7)
         {
             particle.Stop();
+        }*/
+
+        switch (state)
+        {
+            case MovementState.sliding:
+                particle.Play();
+                break;
+            case MovementState.wallrunning:
+                particle.Play();
+                break;
+            case MovementState.rocketjumping:
+                particle.Play();
+                break;
+            case MovementState.dashing:
+                particle.Play();
+                break;
+            case MovementState.swinging:
+                particle.Play();
+                break;
+            case MovementState.walking:
+                particle.Stop();
+                break;
+            case MovementState.air:
+                if(moveSpeed > 7.1f)
+                {
+                    particle.Play();
+                }
+                else
+                {
+                    particle.Stop();
+                }
+                break;
         }
     }
 

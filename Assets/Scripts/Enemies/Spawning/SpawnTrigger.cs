@@ -15,7 +15,8 @@ public class EnemySpawnInfo
 
 public class SpawnTrigger : MonoBehaviour
 {
-    public GameObject TypeOfDoor;
+    public GameObject exitDoor;
+    public GameObject entranceDoor;
 
     public bool triggered;
 
@@ -24,7 +25,8 @@ public class SpawnTrigger : MonoBehaviour
     public bool isWaves;
     public bool wavesStarted;
 
-    public Vector3 doorspawnposition;
+    public Vector3 exitDoorSpawnPosition;
+    public Vector3 entranceDoorSpawnPosition;
 
     public EnemySpawnInfo[] enemiesToSpawn; // Array of enemy prefabs and their counts
 
@@ -45,7 +47,8 @@ public class SpawnTrigger : MonoBehaviour
         if (triggered == true && doorspawned == false && !isWaves)
         {
             text.text = "Defeat the all enemies";
-            Instantiate(TypeOfDoor, doorspawnposition, Quaternion.identity);
+            Instantiate(exitDoor, exitDoorSpawnPosition, Quaternion.identity);
+            Instantiate(entranceDoor, entranceDoorSpawnPosition, Quaternion.identity);
             SpawnEnemies();
             doorspawned = true;
         }
@@ -53,7 +56,8 @@ public class SpawnTrigger : MonoBehaviour
         //waves
         if (triggered == true && doorspawned == false && isWaves)
         {
-            Instantiate(TypeOfDoor, doorspawnposition, Quaternion.identity);
+            Instantiate(exitDoor, exitDoorSpawnPosition, Quaternion.identity);
+            Instantiate(entranceDoor, entranceDoorSpawnPosition, Quaternion.identity);
             doorspawned = true;
             StartCoroutine(SpawnEnemiesWithDelay());
             wavesStarted = true;
