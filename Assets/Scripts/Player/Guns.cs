@@ -34,6 +34,8 @@ public class Guns : MonoBehaviour
     public Rigidbody rb;
     public PlayerMovement pm;
     public GameManager gameManager;
+    public AudioSource gunShootSound;
+    public AudioSource gunReloadSound;
 
 
     private void Update()
@@ -59,6 +61,7 @@ public class Guns : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
             Reload();
+            gunReloadSound.Play();
         }
 
         if(readyToShoot && shooting && !reloading && bulletsLeft > 0 && gameManager.state != State2.Paused) 
@@ -69,6 +72,7 @@ public class Guns : MonoBehaviour
                 Shoot();
                 yield return new WaitForSeconds(yes);
             }
+            gunShootSound.Play();
         }
     }
     private void Shoot()

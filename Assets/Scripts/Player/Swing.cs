@@ -10,11 +10,13 @@ public class Swing : MonoBehaviour
     public Transform gunTip, cam, player;
     public LayerMask whatIsGrappleable;
     private PlayerMovement pm;
+    private bool started;
 
     [Header("Swinging")]
     private float maxSwingDistance = 25f;
     private Vector3 swingPoint;
     private SpringJoint joint;
+    private bool played;
 
     [Header("Input")]
     public KeyCode swingKey = KeyCode.Mouse0;
@@ -25,6 +27,9 @@ public class Swing : MonoBehaviour
     public float horizontalThrustForce;
     public float fowardThrustForce;
     public float extendCableSpeed;
+    public AudioSource grappleSound;
+    public AudioSource grappleHitSound;
+    public AudioSource grappleStopSound;
 
     [Header("Prediction")]
     public RaycastHit predictionHit;
@@ -53,6 +58,11 @@ public class Swing : MonoBehaviour
         if (Input.GetKeyUp(swingKey))
         {
             StopSwing();
+            if (started)
+            {
+                started = false;
+                grappleStopSound.Play();
+            }
         }
 
         CeckForSwingPoints();
@@ -69,6 +79,7 @@ public class Swing : MonoBehaviour
     {
         if (predictionHit.point == Vector3.zero) return;
 
+        started = true;
         pm.swinging = true;
         swingPoint = predictionHit.point;
         joint = player.AddComponent<SpringJoint>();
@@ -86,11 +97,13 @@ public class Swing : MonoBehaviour
 
         lr.positionCount = 2;
         currentGrapplePosition = gunTip.position;
-        
+        grappleSound.Play();
+
     }
 
     private void StopSwing()
     {
+        played = false;
         pm.swinging = false;
         lr.positionCount = 0;
         Destroy(joint);
@@ -104,6 +117,13 @@ public class Swing : MonoBehaviour
 
         lr.SetPosition(0, gunTip.position);
         lr.SetPosition(1, currentGrapplePosition);
+        
+        if(Vector3.Distance(currentGrapplePosition, swingPoint) < 0.1f && !played)
+        {
+            grappleSound.Stop();
+            grappleHitSound.Play();
+            played = true;
+        }
 
     }
 

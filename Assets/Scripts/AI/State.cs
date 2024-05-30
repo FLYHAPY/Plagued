@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class State: MonoBehaviour {
-
     public enum STATE {
 
         IDLE,

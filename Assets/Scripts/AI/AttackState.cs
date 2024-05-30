@@ -8,6 +8,7 @@ using static State;
 public class AttackState : State
 {
     AudioSource sound;
+    public GameObject[] patrolPoints;
     public AttackState(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player) 
         : base(_npc, _agent, _anim, _player)
     {
@@ -18,6 +19,7 @@ public class AttackState : State
     public override void Enter()
     {
         base.Enter();
+        patrolPoints = GameObject.FindGameObjectsWithTag("Checkpoint");
     }
 
     public override void Update()
@@ -33,7 +35,7 @@ public class AttackState : State
         }
         if (!CanAttackPlayer())
         {
-            nextState = new PursueState(npc, agent, anim, player);
+            nextState = new PursueState(npc, agent, anim, player, patrolPoints);
             stage = EVENT.EXIT;
         }
     }

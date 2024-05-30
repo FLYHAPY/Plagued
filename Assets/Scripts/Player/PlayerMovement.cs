@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     public ParticleSystem particle;
     public bool particleIsPlaying;
+    public AudioSource walkingSound;
+    public AudioSource jumpingSound;
+    public AudioSource landingSound; 
 
     //the current state of the player
     public MovementState state;
@@ -121,14 +124,20 @@ public class PlayerMovement : MonoBehaviour
         horizInput = Input.GetAxisRaw("Horizontal");
         vertInput = Input.GetAxisRaw("Vertical");
 
+        if ((vertInput != 0 || horizInput != 0) && !walkingSound.isPlaying && grounded)
+        {
+            walkingSound.Play();
+        }
+
         //Jumping
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
             Jump();
             
             //makes so that you can jump without releasing the space key
             Invoke(nameof(ResetJump), jumpCooldown);
+            //landingSound.Play();
         }
 
         //Crouching
@@ -318,26 +327,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        /*if (state == MovementState.rocketjumping || dashing == true)
-        {
-            particle.Play();
-        }
-        else if (moveSpeed >= 7.1 && state != MovementState.rocketjumping && !dashing)
-        {
-            particle.Play();
-        }
-        else if (moveSpeed <= 7)
-        {
-            particle.Stop();
-        }*/
-
         switch (state)
         {
             case MovementState.sliding:
                 particle.Play();
+                if (!walkingSound.isPlaying)
+                {
+                    walkingSound.Play();
+                }
+                particle.Play();
                 break;
             case MovementState.wallrunning:
                 particle.Play();
+                if (!walkingSound.isPlaying)
+                {
+                    walkingSound.Play();
+                }
                 break;
             case MovementState.rocketjumping:
                 particle.Play();
@@ -366,6 +371,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        jumpingSound.Play();
         exitingSlope = true;
         /*reset the y velocity so that 
         you always jump the same height*/
