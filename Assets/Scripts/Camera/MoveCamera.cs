@@ -47,14 +47,9 @@ public class MoveCamera : MonoBehaviour
             
             if (currentIndex >= targetPositions.Length) 
             {
-                transform.position = Vector3.MoveTowards(transform.position, cameraPos.transform.position, speed * Time.deltaTime);
-                if (transform.position == cameraPos.transform.position)
-                {
-                    inCutcene = false;
-                    currentIndex = 0;
-                }
+                inCutcene = false;
+                currentIndex = 0;
             }
-
         }
     }
 }   

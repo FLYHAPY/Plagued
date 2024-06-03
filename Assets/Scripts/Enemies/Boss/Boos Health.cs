@@ -18,7 +18,7 @@ public class BoosHealth : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, Time.deltaTime * 20f, 0, Space.Self);
+        transform.Rotate(0, Time.deltaTime * 20f, 0, Space.World);
 
         foreach (GameObject obj in objectsToDelete)
         {

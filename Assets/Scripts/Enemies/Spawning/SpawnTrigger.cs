@@ -46,9 +46,9 @@ public class SpawnTrigger : MonoBehaviour
         //normal
         if (triggered == true && doorspawned == false && !isWaves)
         {
-            text.text = "Defeat the all enemies";
-            Instantiate(exitDoor, exitDoorSpawnPosition, Quaternion.identity);
-            Instantiate(entranceDoor, entranceDoorSpawnPosition, Quaternion.identity);
+            text.text = "Defeat all enemies";
+            Instantiate(exitDoor, exitDoorSpawnPosition, Quaternion.Euler(new Vector3(0, -90, 0)));
+            Instantiate(entranceDoor, entranceDoorSpawnPosition, Quaternion.Euler(new Vector3(0, -90, 0)));
             SpawnEnemies();
             doorspawned = true;
         }
@@ -71,7 +71,7 @@ public class SpawnTrigger : MonoBehaviour
                 //normal
                 if (!isWaves)
                 {
-                    GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+                    GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("EnemyToSpawn");
                     foreach (GameObject enemy in allEnemiesLeft)
                     {
                         enemy.SendMessage("Die", SendMessageOptions.DontRequireReceiver);

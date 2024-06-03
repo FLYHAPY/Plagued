@@ -36,6 +36,7 @@ public class Guns : MonoBehaviour
     public GameManager gameManager;
     public AudioSource gunShootSound;
     public AudioSource gunReloadSound;
+    public ParticleSystem particle;
 
 
     private void Update()
@@ -73,6 +74,10 @@ public class Guns : MonoBehaviour
                 yield return new WaitForSeconds(yes);
             }
             gunShootSound.Play();
+            if (rocketjumping)
+            {
+                particle.Play();
+            }
         }
     }
     private void Shoot()
@@ -93,11 +98,13 @@ public class Guns : MonoBehaviour
             //Debug.Log("Hit");
             if (hit.collider.CompareTag("Enemy"))
             {
-                //call the function of the enemy
-                Debug.Log("hit");
-                //hit.collider.gameObject.GetComponent<DroneController>().TakeDamage(damage);
-                //hit.collider.gameObject.GetComponent<OfficerController>().TakeDamage(damage);
-                hit.collider.gameObject.SendMessage("TakeDamage", damage);
+
+                Transform outermostParent = GetOutermostParent(hit.transform);
+
+                // Send the message to the outermost parent
+                outermostParent.SendMessage("TakeDamage", damage);
+
+                //hit.collider.gameObject.SendMessage("TakeDamage", damage);
 
             }
             else if (hit.collider.CompareTag("cable"))
@@ -130,6 +137,16 @@ public class Guns : MonoBehaviour
             Invoke("ResetShot", timeBetweenShooting);
         }
     }
+    Transform GetOutermostParent(Transform child)
+    {
+        Transform current = child;
+        while (current.parent != null)
+        {
+            current = current.parent;
+        }
+        return current;
+    }
+
     private void ResetShot()
     {
         readyToShoot = true;

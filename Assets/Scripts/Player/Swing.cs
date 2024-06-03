@@ -30,6 +30,7 @@ public class Swing : MonoBehaviour
     public AudioSource grappleSound;
     public AudioSource grappleHitSound;
     public AudioSource grappleStopSound;
+    public ParticleSystem particle;
 
     [Header("Prediction")]
     public RaycastHit predictionHit;

@@ -58,19 +58,19 @@ public class PlayerHealth : MonoBehaviour
 
         if (!respawnPoint.GetComponent<SpawnTrigger>().isWaves)
         {
-            GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+            GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("EnemyToSpawn");
             foreach (GameObject enemy in allEnemiesLeft)
             {
                 enemy.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
             }
         }else if (respawnPoint.GetComponent<SpawnTrigger>().isWaves)
         {
-            GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("Enemy");
+            GameObject[] allEnemiesLeft = GameObject.FindGameObjectsWithTag("EnemyToSpawn");
             foreach (GameObject enemy in allEnemiesLeft)
             {
                 respawnPoint.GetComponent<SpawnTrigger>().timer = respawnPoint.GetComponent<SpawnTrigger>().maxTimer;
                 respawnPoint.GetComponent<SpawnTrigger>().StopCoroutines();
-                GameObject[] allEnemiesLeft2 = GameObject.FindGameObjectsWithTag("Enemy");
+                GameObject[] allEnemiesLeft2 = GameObject.FindGameObjectsWithTag("EnemyToSpawn");
                 foreach (GameObject enemy2 in allEnemiesLeft2)
                 {
                     Destroy(enemy2);

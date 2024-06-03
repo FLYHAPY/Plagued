@@ -9,6 +9,8 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private Rigidbody rb;
     private PlayerMovement pm;
+    public Animator dashAnimator;
+    public ParticleSystem particle;
 
     [Header("Dashing")]
     public float dashForce;
@@ -36,7 +38,7 @@ public class Dashing : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(dashKey))
+        if(Input.GetKeyDown(dashKey) && dashCdTimer <= 0)
         {
             Debug.Log("yes");
             pm.StopAll();
@@ -51,10 +53,14 @@ public class Dashing : MonoBehaviour
 
     private void Dash()
     {
-        if (dashCdTimer > 0) return;
+        if (dashCdTimer > 0) 
+        {
+            return;
+        }
+        
         else dashCdTimer = dashCd;
-
         pm.dashing = true;
+        dashAnimator.SetBool("dashed", true);
 
         Transform fowardT;
 
@@ -88,12 +94,14 @@ public class Dashing : MonoBehaviour
     {
         if(resetVel)
             rb.velocity = Vector3.zero;
+        dashAnimator.SetBool("dashed", true);
 
         rb.AddForce(delayedForceToApply, ForceMode.Impulse);
     }
 
     private void ResetDash()
     {
+        dashAnimator.SetBool("dashed", false);
         pm.dashing = false;
         if (disableGravity)
         {

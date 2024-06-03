@@ -14,6 +14,7 @@ public class SniperController : EnemyBase
     public bool grounded;
     public float rotationDuration;
     public bool shoot;
+    public float height = 2;
     private void Start()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -43,7 +44,7 @@ public class SniperController : EnemyBase
             Shoot();
             shoot = true;
         }
-        grounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.1f, layerMask);
+        grounded = Physics.Raycast(transform.position, Vector3.down, height * 0.5f + 0.1f, layerMask);
 
         if (shoot)
         {
@@ -86,14 +87,22 @@ public class SniperController : EnemyBase
 
     void Shoot()
     {
+        // Calculate the predicted position based on player's current velocity
+        Vector3 playerVelocity = player.GetComponent<Rigidbody>().velocity;
+        float distance = Vector3.Distance(firePoint.position, player.transform.position);
+        float travelTime = distance / bulletSpeed;
+        Vector3 predictedPosition = player.transform.position + playerVelocity * travelTime;
+
+        // Instantiate the bullet and set its velocity towards the predicted position
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Vector3 direction = (predictedPosition - firePoint.position).normalized;
+        bullet.transform.LookAt(predictedPosition);  // Ensure the bullet is facing the predicted position
         bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
         bullet.GetComponent<Bullets>().damage = damage;
 
-
         Destroy(bullet, 3f);
     }
+
 
     void JumpAction()
     {

@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreaseMultipier;
     public float slopeIncreaseMultipier;
     public float groudDrag;
+    public float slipDrag;
     public float maxYSpeed;
 
     [Header("Jumping")]
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatisGround;
+    public LayerMask whatIsSliperyGround;
     bool grounded;
 
     [Header("Slope Handling")]
@@ -59,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
     public bool particleIsPlaying;
     public AudioSource walkingSound;
     public AudioSource jumpingSound;
-    public AudioSource landingSound; 
+    public AudioSource landingSound;
+    public bool landed;
 
     //the current state of the player
     public MovementState state;
@@ -95,16 +98,42 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
         MyInput();
         SpeedControl();
         StateHandler();
 
-        //checking if there is ground
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
+        if (moveSpeed == 7 && !rocketJumping && grounded)
+        {
+            if (particle.isPlaying)
+            {
+                particle.Stop();
+            }
+        }
+
+            //checking if there is ground
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatisGround);
+        bool slipGround = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsSliperyGround);
+
+        if (grounded && !landed)
+        {
+            landed = true;
+            landingSound.Play();
+        }
+
+        if (!grounded)
+        {
+            landed = false;
+        }
+
+
 
         //handle the drag
-        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching)
+        if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching && slipGround)
+        {
+            rb.drag = slipDrag;
+        }
+        else if (state == MovementState.walking || state == MovementState.sprinting || state == MovementState.crouching && !slipGround)
         {
             rb.drag = groudDrag;
         }
@@ -137,7 +166,6 @@ public class PlayerMovement : MonoBehaviour
             
             //makes so that you can jump without releasing the space key
             Invoke(nameof(ResetJump), jumpCooldown);
-            //landingSound.Play();
         }
 
         //Crouching
@@ -163,12 +191,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(dashing)
         {
+            StopAllCoroutines();
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
             state = MovementState.dashing;
             desiredMoveSpeed = dashSpeed;
-            diferentSpeed = dashSpeed;
         }
         else if(wallRunning)
         {
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
+            if (!walkingSound.isPlaying)
+            {
+                walkingSound.Play();
+            }
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallRunSpeed;
             diferentSpeed = wallRunSpeed;
@@ -176,9 +216,17 @@ public class PlayerMovement : MonoBehaviour
         //slidiing
         else if (sliding)
         {
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
             state = MovementState.sliding;
+            if (!walkingSound.isPlaying)
+            {
+                walkingSound.Play();
+            }
 
-            if(OnSlope() && rb.velocity.y < 0.1f)
+            if (OnSlope() && rb.velocity.y < 0.1f)
             {
                 desiredMoveSpeed = slideSpeed;
                 diferentSpeed = slideSpeed;
@@ -191,6 +239,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (swinging)
         {
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
             StopAllCoroutines();
             state = MovementState.swinging;
             desiredMoveSpeed = swingSpeed;
@@ -205,6 +257,14 @@ public class PlayerMovement : MonoBehaviour
         //Sprinting
         else if(grounded && Input.GetKey(sprintKey))
         {
+            if (!walkingSound.isPlaying)
+            {
+                walkingSound.Play();
+            }
+            if (!particle.isPlaying)
+            {
+                particle.Play();
+            }
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
             diferentSpeed = sprintSpeed;
@@ -221,6 +281,17 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             state = MovementState.air;
+            if (moveSpeed >= 7.1f)
+            {
+                particle.Play();
+            }
+            else if(moveSpeed == 7f && state == MovementState.air)
+            {
+                if (particle.isPlaying && !rocketJumping)
+                {
+                    particle.Stop();
+                }
+            }
         }
 
         if(Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 6.5  && moveSpeed != 0 && state == MovementState.sliding)
@@ -228,7 +299,7 @@ public class PlayerMovement : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
         }
-        else if (state == MovementState.rocketjumping)
+        else if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 6.5 && state == MovementState.rocketjumping)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -326,47 +397,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
             }
         }
-
-        switch (state)
-        {
-            case MovementState.sliding:
-                particle.Play();
-                if (!walkingSound.isPlaying)
-                {
-                    walkingSound.Play();
-                }
-                particle.Play();
-                break;
-            case MovementState.wallrunning:
-                particle.Play();
-                if (!walkingSound.isPlaying)
-                {
-                    walkingSound.Play();
-                }
-                break;
-            case MovementState.rocketjumping:
-                particle.Play();
-                break;
-            case MovementState.dashing:
-                particle.Play();
-                break;
-            case MovementState.swinging:
-                particle.Play();
-                break;
-            case MovementState.walking:
-                particle.Stop();
-                break;
-            case MovementState.air:
-                if(moveSpeed > 7.1f)
-                {
-                    particle.Play();
-                }
-                else
-                {
-                    particle.Stop();
-                }
-                break;
-        }
     }
 
     private void Jump()
@@ -381,7 +411,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void ResetJump()
-    {
+    { 
         readyToJump = true;
         exitingSlope = false;
     }

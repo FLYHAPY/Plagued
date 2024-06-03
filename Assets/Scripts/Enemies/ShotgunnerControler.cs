@@ -54,37 +54,21 @@ public class ShotgunnerController : EnemyBase
         float spreadAngle = 30f; // Spread angle for the shotgun effect
 
         // Calculate the direction towards the player
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Vector3 direction = (player.transform.position - firePoint.position).normalized;
 
+        // Loop to create each bullet
         for (int i = 0; i < numBullets; i++)
         {
-            // Calculate a random angle within the spread angle
-            float randomAngle = Random.Range(-spreadAngle, spreadAngle);
+            // Calculate the spread for each bullet
+            float angle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
+            Vector3 spreadDirection = Quaternion.Euler(0, angle, 0) * direction;
 
-            // Rotate the direction vector by the random angle around the up axis
-            Quaternion rotation = Quaternion.AngleAxis(randomAngle, Vector3.up);
-            Vector3 spreadDirection = rotation * direction;
-
-            // Instantiate a bullet and set its velocity
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-
-            // Temporarily disable collision detection for the bullet
-            if(bullet != null)
-            {
-                Physics.IgnoreCollision(bullet.GetComponent<Collider>(), GetComponent<Collider>(), true);
-
-                bullet.GetComponent<Rigidbody>().velocity = spreadDirection * bulletSpeed;
-                bullet.GetComponent<Bullets>().damage = damage;
-
-                // Destroy the bullet after some time
-                Destroy(bullet, 3f);
-
-                // Re-enable collision detection after a short delay
-                StartCoroutine(EnableCollisionAfterDelay(bullet.GetComponent<Collider>()));
-            }
+            // Instantiate and shoot the bullet
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(spreadDirection));
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            bullet.GetComponent<Bullets>().damage = damage;
+            rb.velocity = spreadDirection * bulletSpeed;
         }
-
-        Debug.Log("Shooting shot");
     }
 
     IEnumerator EnableCollisionAfterDelay(Collider bulletCollider)

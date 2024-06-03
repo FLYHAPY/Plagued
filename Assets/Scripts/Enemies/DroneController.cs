@@ -14,6 +14,11 @@ public class DroneController : EnemyBase
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player2");
+        door = GameObject.FindGameObjectWithTag("door");
+        if (door != null)
+        {
+            door.GetComponent<Door2>().OnEnemySpawned();
+        }
     }
 
     void Update()
@@ -49,13 +54,12 @@ public class DroneController : EnemyBase
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        //Debug.Log(direction);
+        Vector3 direction = (player.transform.position - firePoint.position).normalized;
+        bullet.transform.LookAt(player.transform.position);
         bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
         bullet.GetComponent<Bullets>().damage = damage;
 
         //Debug.Log("Shooting(");
 
-        Destroy(bullet, 2f);
     }
 }

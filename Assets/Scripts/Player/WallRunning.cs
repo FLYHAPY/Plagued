@@ -40,6 +40,7 @@ public class WallRunning : MonoBehaviour
     private PlayerMovement pm;
     private Rigidbody rb;
     public PlayerCam pc;
+    public ParticleSystem particle;
 
     private void Start()
     {

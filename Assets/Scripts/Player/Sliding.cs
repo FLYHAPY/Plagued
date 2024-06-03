@@ -9,6 +9,7 @@ public class Sliding : MonoBehaviour
     public Transform playerObj;
     private Rigidbody rb;
     private PlayerMovement pm;
+    public ParticleSystem particle;
 
     [Header("Sliding")]
     public float maxSlideTime;
@@ -23,6 +24,7 @@ public class Sliding : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     public bool wasOnSlope;
+
 
     private void Start()
     {

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public DialogueSystem dialogueSystem;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && state == State2.Playing && !dialogueSystem.inDialogue)
+        if (Input.GetKeyDown(KeyCode.Escape) && state == State2.Playing)
         {
             Activate();
             Cursor.lockState = CursorLockMode.None;

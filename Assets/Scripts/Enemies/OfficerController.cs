@@ -32,19 +32,21 @@ public class OfficerController : EnemyBase
 
     void Update()
     {
-        if (!CanThePlayerSee() && saw == false)
+        /*if (!CanThePlayerSee() && saw == false)
         {
             agent.SetDestination(player.transform.position);
         }
         else if(saw == true)
         {
             Hide();
-        }
+        }*/
         if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown)
         {
             Shoot();
             lastShootTime = Time.time;
         };
+
+        agent.SetDestination(player.transform.position);
 
         if (saw)
         {
@@ -93,15 +95,18 @@ public class OfficerController : EnemyBase
 
     void Shoot()
     {
+        // Calculate the predicted position based on player's current velocity
+        Vector3 playerVelocity = player.GetComponent<Rigidbody>().velocity;
+        float distance = Vector3.Distance(firePoint.position, player.transform.position);
+        float travelTime = distance / bulletSpeed;
+        Vector3 predictedPosition = player.transform.position + playerVelocity * travelTime;
+
+        // Instantiate the bullet and set its velocity towards the predicted position
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        Debug.Log(direction);
+        Vector3 direction = (predictedPosition - firePoint.position).normalized;
+        bullet.transform.LookAt(predictedPosition);  // Ensure the bullet is facing the predicted position
         bullet.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
         bullet.GetComponent<Bullets>().damage = damage;
-
-        Debug.Log("Shooting");
-
-        Destroy(bullet, 3f); 
     }
 
     void Hide()

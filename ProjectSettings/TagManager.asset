@@ -19,6 +19,7 @@ TagManager:
   - Ground
   - Explosion
   - Checkpoint
+  - EnemyToSpawn
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - gun
   - grenade
   - test
-  - 
+  - whatIsSlipery
   - 
   - 
   - 

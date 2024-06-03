@@ -261,6 +261,7 @@ MonoBehaviour:
   speedIncreaseMultipier: 1.5
   slopeIncreaseMultipier: 2.5
   groudDrag: 4
+  slipDrag: 8
   maxYSpeed: 0
   jumpForce: 12
   jumpCooldown: 0.25
@@ -270,7 +271,10 @@ MonoBehaviour:
   playerHeight: 2
   whatisGround:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 8200
+  whatIsSliperyGround:
+    serializedVersion: 2
+    m_Bits: 8192
   maxSloapAngle: 40
   jumpKey: 32
   sprintKey: 304
@@ -281,6 +285,7 @@ MonoBehaviour:
   walkingSound: {fileID: 4665513069568818968}
   jumpingSound: {fileID: 2918782937756928680}
   landingSound: {fileID: 3180674960809447973}
+  landed: 0
   state: 0
   sliding: 0
   wallRunning: 0
@@ -353,10 +358,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 7259864372364295666}
   playerCam: {fileID: 0}
+  dashAnimator: {fileID: 0}
   dashForce: 20
   dashUpwardForce: 0
   dashDuration: 0.25
-  dashCd: 1.5
+  dashCd: 2
   dashCdTimer: 0
   dashKey: 101
   useCameraFoward: 1
