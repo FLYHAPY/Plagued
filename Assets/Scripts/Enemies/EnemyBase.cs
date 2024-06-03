@@ -12,6 +12,7 @@ public abstract class EnemyBase : MonoBehaviour
     public Rigidbody rb;
     public GameObject door;
     public LayerMask layerMask;
+    public AudioSource soundEffect;
 
 
     public void TakeDamage(int damage)

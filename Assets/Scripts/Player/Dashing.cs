@@ -11,6 +11,7 @@ public class Dashing : MonoBehaviour
     private PlayerMovement pm;
     public Animator dashAnimator;
     public ParticleSystem particle;
+    public AudioSource dashSound;
 
     [Header("Dashing")]
     public float dashForce;
@@ -57,8 +58,8 @@ public class Dashing : MonoBehaviour
         {
             return;
         }
-        
         else dashCdTimer = dashCd;
+        dashSound.Play();
         pm.dashing = true;
         dashAnimator.SetBool("dashed", true);
 

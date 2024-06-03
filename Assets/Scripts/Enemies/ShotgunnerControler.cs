@@ -55,7 +55,7 @@ public class ShotgunnerController : EnemyBase
 
         // Calculate the direction towards the player
         Vector3 direction = (player.transform.position - firePoint.position).normalized;
-
+        soundEffect.Play();
         // Loop to create each bullet
         for (int i = 0; i < numBullets; i++)
         {

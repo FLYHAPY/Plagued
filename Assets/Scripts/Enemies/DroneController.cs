@@ -53,6 +53,7 @@ public class DroneController : EnemyBase
 
     void Shoot()
     {
+        soundEffect.Play();
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Vector3 direction = (player.transform.position - firePoint.position).normalized;
         bullet.transform.LookAt(player.transform.position);

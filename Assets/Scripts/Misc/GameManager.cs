@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject panel;
     public GameObject resumeButton;
     public GameObject pauseButton;
+    public GameObject setingsButton;
     public GameObject sureButton;
     public GameObject noButton;
     public State2 state;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
         panel.SetActive(false);
         resumeButton.SetActive(false);
         pauseButton.SetActive(false);
+        setingsButton.SetActive(false);
         Time.timeScale = 1f;
     }
 
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
         panel.SetActive(true); 
         resumeButton.SetActive(true);
         pauseButton.SetActive(true);
+        setingsButton.SetActive(true);
     }
 
     public void ExitConfirmation()
@@ -63,12 +66,14 @@ public class GameManager : MonoBehaviour
         panel.SetActive(true);
         resumeButton.SetActive(false);
         pauseButton.SetActive(false);
+        setingsButton.SetActive(false);
         sureButton.SetActive(true);
         noButton.SetActive(true);
     }
 
     public void Sure()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -81,5 +86,6 @@ public class GameManager : MonoBehaviour
         pauseButton.SetActive(true);
         sureButton.SetActive(false);
         noButton.SetActive(false);
+        setingsButton.SetActive(true);
     }
 }

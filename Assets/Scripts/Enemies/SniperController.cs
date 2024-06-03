@@ -87,6 +87,7 @@ public class SniperController : EnemyBase
 
     void Shoot()
     {
+        soundEffect.Play();
         // Calculate the predicted position based on player's current velocity
         Vector3 playerVelocity = player.GetComponent<Rigidbody>().velocity;
         float distance = Vector3.Distance(firePoint.position, player.transform.position);

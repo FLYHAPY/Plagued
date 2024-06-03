@@ -71,6 +71,7 @@ public class JuggernautController : EnemyBase
     {
         for (int i = 0; i < numBullets; i++)
         {
+            soundEffect.Play();
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Vector3 direction = (player.transform.position - firePoint.position).normalized;
             bullet.transform.LookAt(player.transform.position);  // Ensure the bullet is facing the player
