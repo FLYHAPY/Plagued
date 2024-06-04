@@ -14,7 +14,7 @@ public class Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player2")
+        if (other.gameObject.CompareTag("Player2"))
         {
             cameraHolder.GetComponent<MoveCamera>().inCutcene = true;
             other.gameObject.GetComponent<PlayerHealth>().respawnPoint = gameObject;

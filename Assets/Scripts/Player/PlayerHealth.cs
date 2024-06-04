@@ -85,7 +85,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void TrapDeath()
     {
-        transform.position = respawnPoint.transform.position;
+        if (cheatOn) 
+        {
+            transform.position = respawnPoint.transform.position;
+        }
     }
 
     float CalculateFillAmount(float currentHealth)

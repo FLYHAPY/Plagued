@@ -110,7 +110,7 @@ public class DialogueSystem: MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player2")
+        if (other.CompareTag("Player2"))
         {
             collided = true;
         }

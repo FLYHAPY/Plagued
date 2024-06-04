@@ -17,6 +17,7 @@ public class OfficerController : EnemyBase
     public float maxSawTimer;
 
     private float lastShootTime;
+    public bool test;
 
     private void Start()
     {
@@ -32,21 +33,31 @@ public class OfficerController : EnemyBase
 
     void Update()
     {
-        /*if (!CanThePlayerSee() && saw == false)
+        if (test) 
+        {
+            if (!CanThePlayerSee() && saw == false)
+            {
+                agent.SetDestination(player.transform.position);
+            }
+            else if(saw == true)
+            {
+                Hide();
+            }
+        }
+
+        if (Time.time - lastShootTime >= shootCooldown)
+        {
+            if (CanSeePlayer())
+            {
+                Shoot();
+                lastShootTime = Time.time;
+            }
+        }
+
+        if (!test)
         {
             agent.SetDestination(player.transform.position);
         }
-        else if(saw == true)
-        {
-            Hide();
-        }*/
-        if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown)
-        {
-            Shoot();
-            lastShootTime = Time.time;
-        };
-
-        agent.SetDestination(player.transform.position);
 
         if (saw)
         {
@@ -85,7 +96,6 @@ public class OfficerController : EnemyBase
             if (hit.collider.gameObject == gameObject)
             {
                 saw = true;
-                Debug.Log("true");
                 return true;
             }
         }

@@ -33,19 +33,27 @@ public class JuggernautController : EnemyBase
     void Update()
     {
         agent.SetDestination(player.transform.position);
-        if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown && health > 20)
+
+        if (Time.time - lastShootTime >= shootCooldown && health > 20)
         {
-            ShootBurst();
-            lastShootTime = Time.time;
+            if (CanSeePlayer())
+            {
+                ShootBurst();
+                lastShootTime = Time.time;
+            }
         }
 
-        if (health <= 20 && CanSeePlayer() && Time.time - lastShootTime >= shootGrenadeCooldown)
+        if (Time.time - lastShootTime >= shootCooldown && health <= 20)
         {
-
-            StopAllCoroutines();
-            ShootGrenade();
-            lastShootTime = Time.time;
+            if (CanSeePlayer())
+            {
+                StopAllCoroutines();
+                ShootGrenade();
+                lastShootTime = Time.time;
+            }
         }
+
+
     }
 
     bool CanSeePlayer()

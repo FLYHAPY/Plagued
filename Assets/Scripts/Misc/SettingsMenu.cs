@@ -31,7 +31,6 @@ public class SettingsMenu : MonoBehaviour
     public GameObject bullet;
     public GameObject dash;
 
-
     void Start()
     {
         if (PlayerPrefs.HasKey("music") && mixer != null & slider != null && sfxSlider != null)

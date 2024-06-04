@@ -24,10 +24,13 @@ public class DroneController : EnemyBase
     void Update()
     {
         agent.SetDestination(player.transform.position);
-        if (CanSeePlayer() && Time.time - lastShootTime >= shootCooldown)
+        if (Time.time - lastShootTime >= shootCooldown)
         {
-            Shoot();
-            lastShootTime = Time.time;
+            if (CanSeePlayer())
+            {
+                Shoot();
+                lastShootTime = Time.time;
+            }
         }
     }
 

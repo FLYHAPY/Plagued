@@ -24,7 +24,7 @@ public class Lazers : MonoBehaviour
             //Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.red);
             //Debug.DrawRay(hit.point, hit.normal, Color.green);
             endPoint = hit.point;
-            if (hit.collider.tag == "Player2" && !isInCoolDown)
+            if (hit.collider.gameObject.CompareTag("Player2") && !isInCoolDown)
             {
                 // Damage the player
                 PlayerHealth playerHealth = hit.collider.GetComponent<PlayerHealth>();

@@ -37,7 +37,6 @@ public class EnemyStateMachine2 : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(currentState);
         switch (currentState)
         {
             case EnemyState.Attack:

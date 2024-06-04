@@ -18,7 +18,7 @@ public class Teleportations : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player2")
+        if(collision.gameObject.CompareTag("Player2"))
         {
             collision.gameObject.transform.position = otherPortal.transform.position;
         }

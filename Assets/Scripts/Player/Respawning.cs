@@ -6,7 +6,7 @@ public class Respawning : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player2")
+        if (other.gameObject.CompareTag("Player2"))
         {
             other.gameObject.GetComponent<PlayerHealth>().respawnPoint = gameObject;
         }
