@@ -48129,7 +48129,7 @@ PrefabInstance:
     - target: {fileID: 3038154935221811905, guid: 43a1d59ce1e685e41a8f6ea174908c49,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4095751061249892897, guid: 43a1d59ce1e685e41a8f6ea174908c49,
         type: 3}
@@ -48161,6 +48161,11 @@ PrefabInstance:
       propertyPath: predictionPoint
       value: 
       objectReference: {fileID: 883230836}
+    - target: {fileID: 5736429544940807536, guid: 43a1d59ce1e685e41a8f6ea174908c49,
+        type: 3}
+      propertyPath: whatIsGrappleable.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 5754136074699996593, guid: 43a1d59ce1e685e41a8f6ea174908c49,
         type: 3}
       propertyPath: pc
@@ -56989,7 +56994,7 @@ PrefabInstance:
     - target: {fileID: 6937992748792587490, guid: 357a59a2cc7c1304da8d192afe080b45,
         type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnPoints.Array.data[2].z
-      value: -114
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 6937992748792587490, guid: 357a59a2cc7c1304da8d192afe080b45,
         type: 3}
@@ -91622,16 +91627,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 872435767}
-    - target: {fileID: 7181903486263751333, guid: 89d24eacd9c424343b45405a73473eb5,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181903486263751333, guid: 89d24eacd9c424343b45405a73473eb5,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 8537741331766365924, guid: 89d24eacd9c424343b45405a73473eb5,
         type: 3}
       propertyPath: m_Name

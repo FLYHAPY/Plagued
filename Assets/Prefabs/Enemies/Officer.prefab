@@ -873,7 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   bulletcooldown: 1
-  damage: 2
+  damage: 4
   health: 50
   speed: 7
   rb: {fileID: 0}
@@ -894,6 +894,7 @@ MonoBehaviour:
   saw: 0
   sawTimer: 0
   maxSawTimer: 5
+  test: 0
 --- !u!82 &5371993098171664781
 AudioSource:
   m_ObjectHideFlags: 0

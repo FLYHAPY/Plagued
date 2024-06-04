@@ -661,7 +661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   bulletcooldown: 5
-  damage: 10
+  damage: 15
   health: 20
   speed: 0.1
   rb: {fileID: 3250301687092915193}
